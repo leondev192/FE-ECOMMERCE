@@ -11,6 +11,7 @@ const LoadingScreen = () => {
       <Image style={styles.imagelogo1} source={require('../assets/images/logo-loading.png')}/>
       <Image style={styles.imagelogo2} source={require('../assets/images/logo-loadding2.png')}/>
       <Image style={styles.imagefooter} source={require('../assets/images/imageheader.png')} />
+      
     
     </View>
   );
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-
+    position: 'relative',
     
   },
   imageheader: { 
@@ -46,6 +47,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 90,
     marginTop:'30%',
+    position: 'absolute',
+    bottom: 0,
   },
 });
 

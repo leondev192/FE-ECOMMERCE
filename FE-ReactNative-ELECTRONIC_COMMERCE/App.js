@@ -1,10 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, SafeAreaView, View } from 'react-native';
+// App.js
+import * as React from 'react';
+import { useState, useEffect } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Text, TouchableOpacity } from 'react-native';
+
 import LoadingScreen from './src/screens/LoadingScreen';
 import HomeScreen from './src/screens/HomeScreen';
-import LoginScreen from './src/screens/LoginScreen';
+import ShopScreen from './src/screens/ShopScreen';
+import BlogScreen from './src/screens/BlogScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
 
-export default function App() {
+const Tab = createBottomTabNavigator();
+
+function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -13,36 +23,100 @@ export default function App() {
     }, 3000);
   }, []);
 
-  const [isHomeLoaded, setIsHomeLoaded] = useState(false);
-
-  useEffect(() => {
-    if (!isLoading && !isHomeLoaded) {
-      setIsHomeLoaded(true);
-    }
-  }, [isLoading, isHomeLoaded]);
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
-    <SafeAreaView style={styles.container}>
-      {isLoading ? (
-        <LoadingScreen />
-      ) : (
-        <View style={styles.content}>
-          {isHomeLoaded && <HomeScreen/>}
-        </View>
-      )}
-    </SafeAreaView>
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === 'Home') {
+              iconName = focused ? 'home' : 'home-outline';
+            } else if (route.name === 'Shop') {
+              iconName = focused ? 'storefront' : 'storefront-outline';
+            } else if (route.name === 'Blog') {
+              iconName = focused ? 'newspaper' : 'newspaper-outline';
+            } else if (route.name === 'Profile') {
+              iconName = focused ? 'person-circle' : 'person-circle-outline';
+            }
+
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: '#BD9B38',
+          tabBarInactiveTintColor: 'gray',
+        })}
+      >
+        <Tab.Screen 
+          name="Home" 
+          component={HomeScreen} 
+          options={({ navigation }) => ({
+            headerRight: () => (
+              <TouchableOpacity onPress={() => navigation.navigate('Cart')} style={{ marginRight: 20 }}>
+                <Ionicons name="cart" size={24} color="black" />
+              </TouchableOpacity>
+            ),
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => navigation.navigate('Search')} style={{ marginLeft: 20 }}>
+                <Ionicons name="search" size={24} color="black" />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+        <Tab.Screen 
+          name="Shop" 
+          component={ShopScreen} 
+          options={({ navigation }) => ({
+            headerRight: () => (
+              <TouchableOpacity onPress={() => navigation.navigate('Cart')} style={{ marginRight: 20 }}>
+                <Ionicons name="cart" size={24} color="black" />
+              </TouchableOpacity>
+            ),
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => navigation.navigate('Search')} style={{ marginLeft: 20 }}>
+                <Ionicons name="search" size={24} color="black" />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+        <Tab.Screen 
+          name="Blog" 
+          component={BlogScreen} 
+          options={({ navigation }) => ({
+            headerRight: () => (
+              <TouchableOpacity onPress={() => navigation.navigate('Cart')} style={{ marginRight: 20 }}>
+                <Ionicons name="cart" size={24} color="black" />
+              </TouchableOpacity>
+            ),
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => navigation.navigate('Search')} style={{ marginLeft: 20 }}>
+                <Ionicons name="search" size={24} color="black" />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+        <Tab.Screen 
+          name="Profile" 
+          component={ProfileScreen} 
+          options={({ navigation }) => ({
+            headerRight: () => (
+              <TouchableOpacity onPress={() => navigation.navigate('Cart')} style={{ marginRight: 20 }}>
+                <Ionicons name="cart" size={24} color="black" />
+              </TouchableOpacity>
+            ),
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => navigation.navigate('Search')} style={{ marginLeft: 20 }}>
+                <Ionicons name="search" size={24} color="black" />
+              </TouchableOpacity>
+            ),
+          })}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-    
-  },
-  content: {
-    flex: 1,
-    width: '100%',
-    
-  },
-});
+export default App;
