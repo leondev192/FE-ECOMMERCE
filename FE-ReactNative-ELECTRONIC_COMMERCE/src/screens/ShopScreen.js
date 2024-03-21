@@ -1,12 +1,29 @@
-// ShopScreen.js
+import React, { useState, useEffect } from 'react';
+import { View, ScrollView, Button, Text, StyleSheet, FlatList } from 'react-native';
+import ProductCard from '../components/ProductCard';
+import { fetchProducts } from '../services/api/ProductApi';
 
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
 
-const ShopScreen = () => {
+const HomeScreen = ({ navigation }) => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetchProducts()
+      .then(data => setProducts(data))
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Text>Shop Screen</Text>
+    
+       
+        <FlatList
+          data={products}
+          renderItem={({ item }) => <ProductCard product={item} />}
+          keyExtractor={item => item._id}
+          numColumns={2} // Hiển thị 2 sản phẩm trên mỗi hàng
+        />
+     
     </View>
   );
 };
@@ -17,9 +34,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(245, 245, 245, 1)',
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
   },
 });
 
-export default ShopScreen;
+export default HomeScreen;

@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { TextInput as RNTextInput, StyleSheet } from 'react-native';
+import PropTypes from 'deprecated-react-native-prop-types';
+
 
 const TextInput = ({ value, onChangeText, placeholder, secureTextEntry }) => {
   return (

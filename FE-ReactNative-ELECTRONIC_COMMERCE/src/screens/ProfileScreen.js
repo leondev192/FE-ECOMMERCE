@@ -1,32 +1,47 @@
-import React from 'react';
-import { View,Button, Text, StyleSheet } from 'react-native';
+// src/screens/HomeScreen.js
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList } from 'react-native';
+import { fetchCategories } from '../services/api/CategoryApi';
+import { fetchProducts } from '../services/api/ProductApi';
+import ProductCard from '../components/ProductCard';
 
+const HomeScreen = () => {
+    const [categories, setCategories] = useState([]);
+    const [products, setProducts] = useState([]);
 
-const HomeScreen = ({navigation}) => {
-  return (
-    <View style={styles.container}>
-    
-    <Text>Home Screen</Text>
-  
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Loading')}
-      />
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const fetchedCategories = await fetchCategories();
+                setCategories(fetchedCategories);
+                const fetchedProducts = await fetchProducts();
+                setProducts(fetchedProducts);
+            } catch (error) {
+                console.error('Error fetching data:', error.message);
+            }
+        };
+        fetchData();
+    }, []);
 
-    </View>
-  );
+    const renderProduct = ({ item }) => <ProductCard product={item} />;
+
+    return (
+        <View>
+            {categories.map(category => (
+                <View key={category._id}>
+                    <Text>{category.name}</Text>
+                    <FlatList
+                        data={products.filter(product => product.category === category._id)}
+                        renderItem={renderProduct}
+                        keyExtractor={item => item._id}
+                        horizontal
+                    />
+                </View>
+            ))}
+        </View>
+    );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'rgba(245, 245, 245, 1)',
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
-    width:'100%',
-    height:'100%',
-  },
-  
-});
+
 
 export default HomeScreen;

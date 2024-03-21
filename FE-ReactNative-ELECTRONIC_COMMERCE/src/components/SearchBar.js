@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native'; // Import useNavigation
+import PropTypes from 'deprecated-react-native-prop-types';
 
 const SearchBar = () => {
   const [searchText, setSearchText] = useState('');

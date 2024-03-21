@@ -1,6 +1,7 @@
 // ProductCard.js
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import PropTypes from 'deprecated-react-native-prop-types';
 
 const ProductCard = ({ product }) => {
   return (
@@ -30,12 +31,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   productName: {
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: 'bold',
     marginBottom: 5,
   },
   productPrice: {
-    fontSize: 14,
+    fontSize: 9,
   },
 });
 

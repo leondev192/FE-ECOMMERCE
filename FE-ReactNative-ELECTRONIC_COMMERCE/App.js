@@ -1,10 +1,12 @@
 // App.js
+
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import LoadingScreen from './src/screens/LoadingScreen';
 import HomeScreen from './src/screens/HomeScreen';
@@ -54,8 +56,14 @@ function App() {
           name="Home" 
           component={HomeScreen} 
           options={({ navigation }) => ({
+            headerTitle: () => (
+              <Image
+                source={require('./src/assets/logo/1.png')} 
+                style={{ width: 50, height: 50 }} 
+              />
+            ),
             headerRight: () => (
-              <TouchableOpacity onPress={() => navigation.navigate('Cart')} style={{ marginRight: 20 }}>
+              <TouchableOpacity onPress={() => navigation.navigate('Loading')} style={{ marginRight: 20 }}>
                 <Ionicons name="cart" size={24} color="black" />
               </TouchableOpacity>
             ),
@@ -70,6 +78,12 @@ function App() {
           name="Shop" 
           component={ShopScreen} 
           options={({ navigation }) => ({
+            headerTitle: () => (
+              <Image
+                source={require('./src/assets/logo/1.png')} 
+                style={{ width: 50, height: 50 }} 
+              />
+            ),
             headerRight: () => (
               <TouchableOpacity onPress={() => navigation.navigate('Cart')} style={{ marginRight: 20 }}>
                 <Ionicons name="cart" size={24} color="black" />
@@ -86,6 +100,12 @@ function App() {
           name="Blog" 
           component={BlogScreen} 
           options={({ navigation }) => ({
+            headerTitle: () => (
+              <Image
+                source={require('./src/assets/logo/1.png')} 
+                style={{ width: 50, height: 50 }} 
+              />
+            ),
             headerRight: () => (
               <TouchableOpacity onPress={() => navigation.navigate('Cart')} style={{ marginRight: 20 }}>
                 <Ionicons name="cart" size={24} color="black" />
@@ -102,6 +122,12 @@ function App() {
           name="Profile" 
           component={ProfileScreen} 
           options={({ navigation }) => ({
+            headerTitle: () => (
+              <Image
+                source={require('./src/assets/logo/1.png')} 
+                style={{ width: 50, height: 50 }} 
+              />
+            ),
             headerRight: () => (
               <TouchableOpacity onPress={() => navigation.navigate('Cart')} style={{ marginRight: 20 }}>
                 <Ionicons name="cart" size={24} color="black" />
@@ -114,6 +140,7 @@ function App() {
             ),
           })}
         />
+      
       </Tab.Navigator>
     </NavigationContainer>
   );
