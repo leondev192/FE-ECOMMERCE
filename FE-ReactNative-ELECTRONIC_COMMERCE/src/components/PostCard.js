@@ -1,16 +1,21 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
-import PropTypes from 'deprecated-react-native-prop-types';
+import { TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
 
-const PostCard = ({ post }) => {
+
+const PostCard = ({ post,navigation }) => {
+  const handlePress = () => {
+    navigation.navigate('PostDetail', { post: post });
+  };
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={handlePress}>
       <Image source={{ uri: post.image }} style={styles.postImage} />
-      <Text style={styles.postTitle}>{post.title}</Text>
+      <Text numberOfLines={1} style={styles.postTitle}>{post.title}</Text>
       
-    </View>
+    </TouchableOpacity>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -19,8 +24,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     margin: 10,
     padding: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
+    borderWidth: 0.2,
+    borderColor: 'rgba(189, 121, 56, 1)',
     borderRadius: 10,
   },
   postImage: {

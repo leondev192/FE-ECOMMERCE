@@ -20,6 +20,7 @@ const TextInput = ({ value, onChangeText, placeholder, secureTextEntry }) => {
 const styles = StyleSheet.create({
   input: {
     height: 40,
+    borderRadius:10,
     borderColor: 'gray',
     borderWidth: 1,
     paddingHorizontal: 10,

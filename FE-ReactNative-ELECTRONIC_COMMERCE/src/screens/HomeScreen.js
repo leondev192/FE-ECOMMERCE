@@ -1,20 +1,22 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { View, ScrollView, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import ProductCard from '../components/ProductHomeAll';
+import ProductHomeAll from '../components/ProductHomeAll';
+import ProductCard from '../components/ProductCard';
 import { fetchProducts } from '../services/api/ProductApi';
 import Slider from '../components/SliderHome';
 import { Ionicons } from '@expo/vector-icons';
 import { fetchCategories } from '../services/api/CategoryApi';
 import PostCard from '../components/PostCardHome'; 
 import { fetchPosts } from '../services/api/PostApi'; 
+import PostCardHome from '../components/PostCardHome';
 
 const HomeScreen = ({ navigation }) => {
   const [products, setProducts] = useState([]);
   
   const [scrollOffset, setScrollOffset] = useState(0);
   const [categories, setCategories] = useState([]);
-  const [numColumns, setNumColumns] = useState(2); // Số cột mặc định là 1
+  const [numColumns, setNumColumns] = useState(2);
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -35,6 +37,7 @@ const HomeScreen = ({ navigation }) => {
       .then(data => setProducts(data))
       .catch(error => console.error('Error fetching data:', error));
   }, []);
+
   useEffect(() => {
     fetchPosts()
       .then(data => setPosts(data))
@@ -70,7 +73,7 @@ const HomeScreen = ({ navigation }) => {
   };
   
 
-  const renderProduct = ({ item }) => <ProductCard product={item} />;
+  const renderProduct = ({ item }) => <ProductHomeAll product={item} />;
 
   const scrollViewRef = React.useRef();
   const scrollViewRefForPosts = React.useRef();
@@ -86,8 +89,10 @@ const HomeScreen = ({ navigation }) => {
         <ScrollView horizontal={true} ref={scrollViewRef} onScroll={handleScroll}>
           <FlatList
             data={products}
-            renderItem={({ item }) => <ProductCard product={item} />}
-            keyExtractor={(item, index) => `column-${numColumns}-item-${index}`} // Sử dụng numColumns trong key
+            renderItem={({ item }) => <ProductHomeAll product={item} navigation={navigation} />}
+            keyExtractor={item => item._id}
+            
+           
             horizontal={true}
           />
         </ScrollView>
@@ -100,7 +105,7 @@ const HomeScreen = ({ navigation }) => {
           <Ionicons name="arrow-forward" size={15} color="black" />
         </TouchableOpacity>
 
-
+        <ScrollView>
 
         {categories.map(category => (
           <View key={category._id}>
@@ -109,24 +114,30 @@ const HomeScreen = ({ navigation }) => {
             </View>
             <FlatList
               data={products.filter(product => product.category === category._id)}
-              renderItem={renderProduct}
-              keyExtractor={(item, index) => `category-${category._id}-column-${numColumns}-item-${index}`} // Sử dụng numColumns trong key
+              renderItem={({ item }) => <ProductCard product={item} navigation={navigation} />}
+              keyExtractor={item => item._id}
               numColumns={numColumns}
             />
 
           </View>
         ))}
-        <View style={styles.ViewAllProuct}>
+      </ScrollView>
+        <View style={styles.ViewAllProuct}>  
       <Text style={styles.allProduct}>Tin Tức</Text>
       </View>
       <ScrollView horizontal={true} ref={scrollViewRefForPosts} onScroll={handleScroll}>
-  <FlatList
-    data={posts}
-    renderItem={({ item }) => <PostCard post={item} />}
-    keyExtractor={item => item._id}
-    horizontal
-  />
+  {posts.length > 0 ? (
+    <FlatList
+      data={posts}
+      renderItem={({ item }) => <PostCard post={item} navigation={navigation} />}
+      keyExtractor={item => item._id}
+      horizontal
+    />
+  ) : (
+    <Text>No posts available</Text>
+  )}
 </ScrollView>
+
 
         <TouchableOpacity style={styles.buttonLeftNew} onPress={scrollToPreviousNew}>
           <Ionicons name="arrow-back-sharp" size={15} color="black" />
@@ -152,7 +163,7 @@ const styles = StyleSheet.create({
   },
   buttonLeft: {
     position: 'absolute',
-    top: '11%',
+    top: '10.3%',
     left: 0,
     transform: [{ translateY: -25 }],
     padding: 10,
@@ -162,18 +173,13 @@ const styles = StyleSheet.create({
   },
   buttonRight: {
     position: 'absolute',
-    top: '11%',
+    top: '10.3%',
     right: 0,
     transform: [{ translateY: -25 }],
     padding: 10,
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     borderRadius: 5,
     
-  },
-  allProduct: {
-    color: 'black',
-    fontWeight: '600',
-    fontSize: 15,
   },
   ViewAllProuct: {
     backgroundColor: 'rgba(181, 139, 94, 1)',
@@ -183,10 +189,16 @@ const styles = StyleSheet.create({
     width: 'auto',
     height: 30,
   },
+  allProduct: {
+    color: 'black',
+    fontWeight: '600',
+    fontSize: 15,
+  },
+
 
   buttonLeftNew: {
     position: 'absolute',
-    bottom: '3%',
+    bottom: '2.6%',
     left: 0,
     transform: [{ translateY: -25 }],
     padding: 10,
@@ -196,7 +208,7 @@ const styles = StyleSheet.create({
   },
   buttonRightNew: {
     position: 'absolute',
-    bottom: '3%',
+    bottom: '2.6%',
     right: 0,
     transform: [{ translateY: -25 }],
     padding: 10,

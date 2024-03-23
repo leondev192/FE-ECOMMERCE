@@ -8,9 +8,8 @@ const SliderHome = () => {
   const data = [
     { image: require('../assets/images/s0.png') },
     { image: require('../assets/images/s4.png') },
-  
     { image: require('../assets/images/s2.png') },
-    // { image: require('../assets/images/Slider-4.jpg') },
+   
     
   ];
 

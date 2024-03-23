@@ -1,132 +1,52 @@
-// // src/screens/LoginScreen.js
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, Button, Alert } from 'react-native';
+import TextInput from '../components/Login';
+import { login } from '../services/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 
-// import React, { useState } from 'react';
-// import { StyleSheet, View, Text, Button, Alert } from 'react-native';
-// import TextInput from '../components/TextInput'; // Import TextInput component
-// import { login } from '../services/auth';
+const LoginScreen = ({ navigation }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-
-// const LoginScreen = () => {
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-
-//   const handleLogin = async () => {
-//     try {
-//       const token = await login(email, password);
-//       console.log('Login successful. Token:', token);
-//     } catch (error) {
-//       Alert.alert('Error', error.message);
-//     }
-//   };
-
-//   return (
-//     <View>
-//       <Text>Email:</Text>
-//       <TextInput
-//         value={email}
-//         onChangeText={setEmail}
-//         placeholder="Enter your email"
-//         autoCapitalize="none"
-//         keyboardType="email-address"
-//       />
-//       <Text>Password:</Text>
-//       <TextInput
-//         value={password}
-//         onChangeText={setPassword}
-//         placeholder="Enter your password"
-//         secureTextEntry
-//       />
-//       <Button title="Login" onPress={handleLogin} />
-//     </View>
-//   );
-// };
-
-
-
-// export default LoginScreen;
-
-
-
-import react from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
-
-export default function App() {
- 
-  const Boxes = () =>{
-    
-
-    return (
-      <View style ={styles.boxes}>
-        <View style ={styles.item1}>
-          <Text>Login</Text>
-        </View>
-
-        <View style ={styles.item2}>
-          <Text>Login</Text>
-        </View>
-
-        <View style ={styles.item3}>
-          <Text>Login</Text>
-        </View>
-
-        <View style ={styles.item4}>
-          <Text>Login</Text>
-        </View>
-      </View>
-    );
+  const handleLogin = async () => {
+    try {
+      const token = await login(email, password);
+      await AsyncStorage.setItem('token', token); // Save token to AsyncStorage
+      console.log('Login successful. Token:', token);
+      // Navigate to other screen upon successful login
+      navigation.navigate('Profile'); // Change 'Profile' to your desired screen name
+    } catch (error) {
+      Alert.alert('Error', error.message);
+    }
   };
+
   return (
-    <SafeAreaView style={styles.container}>
-     
-      <Boxes />
-      
-    </SafeAreaView>
+    <View style={styles.container}>
+      <Text>Email:</Text>
+      <TextInput
+        value={email}
+        onChangeText={setEmail}
+        placeholder="Enter your email"
+        autoCapitalize="none"
+        keyboardType="email-address"
+      />
+      <Text>Password:</Text>
+      <TextInput
+        value={password}
+        onChangeText={setPassword}
+        placeholder="Enter your password"
+        secureTextEntry
+      />
+      <Button title="Login" onPress={handleLogin} />
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 10,
   },
-
-    
-
-    boxes: {
-  backgroundColor: "yellow",
-  width: '100%',
-  height:'90%',
-  padding: 5,
-  flexDirection: 'row',
-  
-
-    },
-    item1:{
-      backgroundColor:'blue',
-      width:'50%',
-      height: '50%',
-      marginRight:2.5
-      
-    },
-    item2:{
-      backgroundColor:'red',
-      width:'50%',
-      height: '50%',
-      marginLeft: 2.5
-    },
-    item3:{
-      backgroundColor:'blue',
-      width:'50%',
-      height: '50%',
-      marginRight:2.5
-      
-    },
-    item4:{
-      backgroundColor:'red',
-      width:'50%',
-      height: '50%',
-      marginLeft: 2.5
-    }
 });
+
+export default LoginScreen;

@@ -7,14 +7,16 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Text, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
+// import AppNavigator from './src/navigation/AppNavigator'; 
 import LoadingScreen from './src/screens/LoadingScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import ShopScreen from './src/screens/ShopScreen';
 import BlogScreen from './src/screens/BlogScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
+import ProductDetailScreen from './src/screens/ProductDetailScreen';
+import MainTabNavigator from './src/navigation/MainTabNavigator';
 
-const Tab = createBottomTabNavigator();
+
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -31,117 +33,7 @@ function App() {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-
-            if (route.name === 'Home') {
-              iconName = focused ? 'home' : 'home-outline';
-            } else if (route.name === 'Shop') {
-              iconName = focused ? 'storefront' : 'storefront-outline';
-            } else if (route.name === 'Blog') {
-              iconName = focused ? 'newspaper' : 'newspaper-outline';
-            } else if (route.name === 'Profile') {
-              iconName = focused ? 'person-circle' : 'person-circle-outline';
-            }
-
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: '#BD9B38',
-          tabBarInactiveTintColor: 'gray',
-        })}
-      >
-        <Tab.Screen 
-          name="Home" 
-          component={HomeScreen} 
-          options={({ navigation }) => ({
-            headerTitle: () => (
-              <Image
-                source={require('./src/assets/logo/1.png')} 
-                style={{ width: 50, height: 50 }} 
-              />
-            ),
-            headerRight: () => (
-              <TouchableOpacity onPress={() => navigation.navigate('Loading')} style={{ marginRight: 20 }}>
-                <Ionicons name="cart" size={24} color="black" />
-              </TouchableOpacity>
-            ),
-            headerLeft: () => (
-              <TouchableOpacity onPress={() => navigation.navigate('Search')} style={{ marginLeft: 20 }}>
-                <Ionicons name="search" size={24} color="black" />
-              </TouchableOpacity>
-            ),
-          })}
-        />
-        <Tab.Screen 
-          name="Shop" 
-          component={ShopScreen} 
-          options={({ navigation }) => ({
-            headerTitle: () => (
-              <Image
-                source={require('./src/assets/logo/1.png')} 
-                style={{ width: 50, height: 50 }} 
-              />
-            ),
-            headerRight: () => (
-              <TouchableOpacity onPress={() => navigation.navigate('Cart')} style={{ marginRight: 20 }}>
-                <Ionicons name="cart" size={24} color="black" />
-              </TouchableOpacity>
-            ),
-            headerLeft: () => (
-              <TouchableOpacity onPress={() => navigation.navigate('Search')} style={{ marginLeft: 20 }}>
-                <Ionicons name="search" size={24} color="black" />
-              </TouchableOpacity>
-            ),
-          })}
-        />
-        <Tab.Screen 
-          name="Blog" 
-          component={BlogScreen} 
-          options={({ navigation }) => ({
-            headerTitle: () => (
-              <Image
-                source={require('./src/assets/logo/1.png')} 
-                style={{ width: 50, height: 50 }} 
-              />
-            ),
-            headerRight: () => (
-              <TouchableOpacity onPress={() => navigation.navigate('Cart')} style={{ marginRight: 20 }}>
-                <Ionicons name="cart" size={24} color="black" />
-              </TouchableOpacity>
-            ),
-            headerLeft: () => (
-              <TouchableOpacity onPress={() => navigation.navigate('Search')} style={{ marginLeft: 20 }}>
-                <Ionicons name="search" size={24} color="black" />
-              </TouchableOpacity>
-            ),
-          })}
-        />
-        <Tab.Screen 
-          name="Profile" 
-          component={ProfileScreen} 
-          options={({ navigation }) => ({
-            headerTitle: () => (
-              <Image
-                source={require('./src/assets/logo/1.png')} 
-                style={{ width: 50, height: 50 }} 
-              />
-            ),
-            headerRight: () => (
-              <TouchableOpacity onPress={() => navigation.navigate('Cart')} style={{ marginRight: 20 }}>
-                <Ionicons name="cart" size={24} color="black" />
-              </TouchableOpacity>
-            ),
-            headerLeft: () => (
-              <TouchableOpacity onPress={() => navigation.navigate('Search')} style={{ marginLeft: 20 }}>
-                <Ionicons name="search" size={24} color="black" />
-              </TouchableOpacity>
-            ),
-          })}
-        />
-      
-      </Tab.Navigator>
+      <MainTabNavigator/>
     </NavigationContainer>
   );
 }

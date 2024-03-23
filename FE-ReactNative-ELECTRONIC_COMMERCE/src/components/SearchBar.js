@@ -1,18 +1,13 @@
-// components/SearchBar.js
-
 import React, { useState } from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native'; // Import useNavigation
-import PropTypes from 'deprecated-react-native-prop-types';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-const SearchBar = () => {
+const SearchBar = ({ onSearch }) => {
   const [searchText, setSearchText] = useState('');
-  const navigation = useNavigation(); // Use useNavigation hook
 
   const handleSearch = () => {
-    // Do something with the search text, for example navigate to a search results screen
-    navigation.navigate('SearchResults', { searchText });
+    if (searchText.trim() !== '') {
+      onSearch(searchText);
+    }
   };
 
   return (
@@ -22,9 +17,10 @@ const SearchBar = () => {
         placeholder="Search"
         value={searchText}
         onChangeText={text => setSearchText(text)}
-        onSubmitEditing={handleSearch}
       />
-      <Ionicons name="search" size={24} color="#000" style={styles.searchIcon} />
+      <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
+        <Text style={styles.buttonText}>Search</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -33,18 +29,27 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#eee',
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    marginHorizontal: 10,
-    marginVertical: 5,
-    width:'170%',
-    marginLeft:20,
+    padding:10,
   },
-  searchIcon: {},
   input: {
     flex: 1,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    marginRight: 10,
+    
+  },
+  searchButton: {
+    backgroundColor: 'rgba(181, 139, 94, 1)',
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });
 

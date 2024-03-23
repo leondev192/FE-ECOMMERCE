@@ -1,47 +1,60 @@
-// src/screens/HomeScreen.js
-import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList } from 'react-native';
-import { fetchCategories } from '../services/api/CategoryApi';
-import { fetchProducts } from '../services/api/ProductApi';
-import ProductCard from '../components/ProductCard';
+import React, { useState } from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const HomeScreen = () => {
-    const [categories, setCategories] = useState([]);
-    const [products, setProducts] = useState([]);
+const ProfileScreen = ({ navigation }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const fetchedCategories = await fetchCategories();
-                setCategories(fetchedCategories);
-                const fetchedProducts = await fetchProducts();
-                setProducts(fetchedProducts);
-            } catch (error) {
-                console.error('Error fetching data:', error.message);
-            }
-        };
-        fetchData();
-    }, []);
+  // Kiểm tra trạng thái đăng nhập mỗi khi màn hình được focus
+  useFocusEffect(
+    React.useCallback(() => {
+      const checkLoginStatus = async () => {
+        try {
+          const token = await AsyncStorage.getItem('token');
+          if (token) {
+            setIsLoggedIn(true);
+          } else {
+            setIsLoggedIn(false);
+          }
+        } catch (error) {
+          console.error('Error checking login status:', error);
+        }
+      };
+      checkLoginStatus();
+    }, [])
+  );
 
-    const renderProduct = ({ item }) => <ProductCard product={item} />;
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem('token');
+      setIsLoggedIn(false); // Update isLoggedIn state after logout
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
 
-    return (
-        <View>
-            {categories.map(category => (
-                <View key={category._id}>
-                    <Text>{category.name}</Text>
-                    <FlatList
-                        data={products.filter(product => product.category === category._id)}
-                        renderItem={renderProduct}
-                        keyExtractor={item => item._id}
-                        horizontal
-                    />
-                </View>
-            ))}
-        </View>
-    );
+  return (
+    <View style={styles.container}>
+      <Text>Profile Screen</Text>
+      {isLoggedIn ? (
+        <Button title="Logout" onPress={handleLogout} />
+      ) : (
+        <Button
+          title="Login"
+          onPress={() => navigation.navigate('Login')}
+        />
+      )}
+    </View>
+  );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
 
-
-export default HomeScreen;
+export default ProfileScreen;

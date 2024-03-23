@@ -3,7 +3,7 @@ import { View, ScrollView, Button, Text, StyleSheet, FlatList } from 'react-nati
 import PostCard from '../components/PostCard'; 
 import { fetchPosts } from '../services/api/PostApi'; 
 
-const HomeScreen = ({ navigation }) => {
+const BlogScreen = ({ navigation }) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -14,10 +14,13 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+       <View style={styles.viewTitle}>  
+      <Text style={styles.viewNameTitle}>Tin Tức</Text>
+      </View>
       <ScrollView>
         <FlatList
           data={posts}
-          renderItem={({ item }) => <PostCard post={item} />}
+          renderItem={({ item }) => <PostCard post={item} navigation={navigation} />}
           keyExtractor={item => item._id}
         />
       </ScrollView>
@@ -34,6 +37,19 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
+  viewTitle: {
+    backgroundColor: 'rgba(181, 139, 94, 1)',
+    marginTop: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 'auto',
+    height: 30,
+  },
+    viewNameTitle: {
+    color: 'black',
+    fontWeight: '600',
+    fontSize: 15,
+  },
 });
 
-export default HomeScreen;
+export default BlogScreen;
