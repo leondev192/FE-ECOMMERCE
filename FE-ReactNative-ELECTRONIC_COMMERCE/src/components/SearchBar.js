@@ -14,12 +14,12 @@ const SearchBar = ({ onSearch }) => {
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="Search"
+        placeholder="Nhập tên sảm phẩm"
         value={searchText}
         onChangeText={text => setSearchText(text)}
       />
       <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-        <Text style={styles.buttonText}>Search</Text>
+        <Text style={styles.buttonText}>Tìm kiếm </Text>
       </TouchableOpacity>
     </View>
   );

@@ -38,7 +38,7 @@ const SearchResultsScreen = ({navigation}) => {
       {isLoading ? (
         <ActivityIndicator size="large" color="#000" />
       ) : searchResults.length === 0 ? (
-        <Text style={styles.result}>No results found</Text>
+        <Text style={styles.result}>không có kết quả nào được tìm thấy</Text>
       ) : (
         <FlatList
           data={searchResults}

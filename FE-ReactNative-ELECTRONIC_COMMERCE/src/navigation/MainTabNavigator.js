@@ -14,6 +14,7 @@ import PostDetailScreen from '../screens/PostDetailScreen';
 import SearchScreen from '../screens/SearchScreen'; 
 import CartScreen from '../screens/CartScreen';
 import LoginScreen from '../screens/LoginScreen';
+import RegisterScreen from '../screens/RegisterScreen';
 
 
 
@@ -348,6 +349,18 @@ const BlogStackScreen = ({navigation}) => {
          <Stack.Screen 
           name="Login" 
           component={LoginScreen} 
+          options={{
+              headerTitle: () => (
+                  <Image
+                  source={require('../assets/logo/1.png')} 
+                  style={{ width: 50, height: 50 }} 
+                  />
+                  ),
+          }}
+        />
+        <Stack.Screen 
+          name="Register" 
+          component={RegisterScreen} 
           options={{
               headerTitle: () => (
                   <Image

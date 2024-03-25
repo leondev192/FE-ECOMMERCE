@@ -12,8 +12,8 @@ const ProductCard = ({ product, navigation }) => {
         <Image source={{ uri: product.image }} style={styles.productImage} />
         <Text numberOfLines={1} style={styles.productName}>{product.name}</Text>
         <Text style={styles.productPrice}>{product.price}.VND</Text>
-        <TouchableOpacity style={styles.button} onPress={() => Alert.alert('Thông báo', 'Sản phẩm đã được thêm vào giỏ hàng')}>
-        <Text style={styles.buttonText}>Thêm vào giỏ hàng</Text>
+        <TouchableOpacity style={styles.button} onPress={handlePress}>
+        <Text style={styles.buttonText}>Chi tiết sản phẩm</Text>
       </TouchableOpacity>
       </TouchableOpacity>
     );

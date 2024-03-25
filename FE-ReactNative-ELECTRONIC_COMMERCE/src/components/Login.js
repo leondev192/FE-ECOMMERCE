@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { TextInput as RNTextInput, StyleSheet } from 'react-native';
-import PropTypes from 'deprecated-react-native-prop-types';
+
 
 
 const TextInput = ({ value, onChangeText, placeholder, secureTextEntry }) => {
@@ -19,12 +19,12 @@ const TextInput = ({ value, onChangeText, placeholder, secureTextEntry }) => {
 
 const styles = StyleSheet.create({
   input: {
-    height: 40,
+    height: 50,
     borderRadius:10,
-    borderColor: 'gray',
-    borderWidth: 1,
+    backgroundColor:'rgba(196, 196, 196, 0.2)',
     paddingHorizontal: 10,
     marginBottom: 10,
+    padding:10,
   },
 });
 
