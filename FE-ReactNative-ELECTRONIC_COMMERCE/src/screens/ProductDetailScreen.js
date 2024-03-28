@@ -47,17 +47,7 @@ const ProductDetailScreen = ({ route, navigation }) => {
     setQuantity(quantity + 1);
   };
 
-  const scrollToPrevious = () => {
-    if (scrollViewRef.current) {
-      scrollViewRef.current.scrollTo({ x: scrollViewRef.current.contentOffset.x - 200, animated: true });
-    }
-  };
-
-  const scrollToNext = () => {
-    if (scrollViewRef.current) {
-      scrollViewRef.current.scrollTo({ x: scrollViewRef.current.contentOffset.x + 200, animated: true });
-    }
-  };
+  
 
   return (
     <ScrollView>
@@ -104,13 +94,7 @@ const ProductDetailScreen = ({ route, navigation }) => {
           ))}
         </ScrollView>
 
-        <TouchableOpacity style={styles.buttonLeft} onPress={scrollToPrevious}>
-          <Ionicons name="arrow-back-sharp" size={15} color="black" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.buttonRight} onPress={scrollToNext}>
-          <Ionicons name="arrow-forward" size={15} color="black" />
-        </TouchableOpacity>
+       
       </View>
     </ScrollView>
   );
@@ -188,24 +172,7 @@ const styles = StyleSheet.create({
   quantityButton: {
     paddingHorizontal: 10,
   },
-  buttonLeft: {
-    position: 'absolute',
-    bottom: '10%',
-    left: 0,
-    transform: [{ translateY: -25 }],
-    padding: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    borderRadius: 5,
-  },
-  buttonRight: {
-    position: 'absolute',
-    bottom: '10%',
-    right: 0,
-    transform: [{ translateY: -25 }],
-    padding: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    borderRadius: 5,
-  },
+
   ViewAllProuct: {
     backgroundColor: 'rgba(181, 139, 94, 1)',
     marginTop: 20,

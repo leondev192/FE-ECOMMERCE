@@ -1,3 +1,3 @@
 
 
-export const apiUrl = 'https://mokaasia.id.vn/api';
+export const apiUrl = 'http://localhost:3000/api';

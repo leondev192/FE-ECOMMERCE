@@ -49,28 +49,6 @@ const HomeScreen = ({ navigation }) => {
     setScrollOffset(offsetX);
   };
 
-  const scrollToPrevious = () => {
-    if (scrollOffset > 0) {
-      scrollViewRef.current.scrollTo({ x: scrollOffset - 200, animated: true });
-    }
-  };
-
-  const scrollToNext = () => {
-    if (scrollOffset < (products.length - 1) * 200) {
-      scrollViewRef.current.scrollTo({ x: scrollOffset + 200, animated: true });
-    }
-  };
-  const scrollToPreviousNew = () => {
-    if (scrollOffset > 0) {
-      scrollViewRefForPosts.current.scrollTo({ x: scrollOffset - 200, animated: true });
-    }
-  };
-  
-  const scrollToNextNew = () => {
-    if (scrollOffset < (posts.length - 1) * 200) {
-      scrollViewRefForPosts.current.scrollTo({ x: scrollOffset + 200, animated: true });
-    }
-  };
   
 
   const renderProduct = ({ item }) => <ProductHomeAll product={item} />;
@@ -97,14 +75,7 @@ const HomeScreen = ({ navigation }) => {
           />
         </ScrollView>
 
-        <TouchableOpacity style={styles.buttonLeft} onPress={scrollToPrevious}>
-          <Ionicons name="arrow-back-sharp" size={15} color="black" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.buttonRight} onPress={scrollToNext}>
-          <Ionicons name="arrow-forward" size={15} color="black" />
-        </TouchableOpacity>
-
+       
         <ScrollView>
 
         {categories.map(category => (
@@ -139,13 +110,7 @@ const HomeScreen = ({ navigation }) => {
 </ScrollView>
 
 
-        <TouchableOpacity style={styles.buttonLeftNew} onPress={scrollToPreviousNew}>
-          <Ionicons name="arrow-back-sharp" size={15} color="black" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.buttonRightNew} onPress={scrollToNextNew}>
-          <Ionicons name="arrow-forward" size={15} color="black" />
-        </TouchableOpacity>
+       
       </ScrollView>
     </View>
   );
@@ -161,26 +126,7 @@ const styles = StyleSheet.create({
     height: '100%',
     position: 'relative',
   },
-  buttonLeft: {
-    position: 'absolute',
-    top: '10.3%',
-    left: 0,
-    transform: [{ translateY: -25 }],
-    padding: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    borderRadius: 5,
-    
-  },
-  buttonRight: {
-    position: 'absolute',
-    top: '10.3%',
-    right: 0,
-    transform: [{ translateY: -25 }],
-    padding: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    borderRadius: 5,
-    
-  },
+
   ViewAllProuct: {
     backgroundColor: 'rgba(181, 139, 94, 1)',
     marginTop: 10,
@@ -196,25 +142,7 @@ const styles = StyleSheet.create({
   },
 
 
-  buttonLeftNew: {
-    position: 'absolute',
-    bottom: '2.6%',
-    left: 0,
-    transform: [{ translateY: -25 }],
-    padding: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    borderRadius: 5,
-    
-  },
-  buttonRightNew: {
-    position: 'absolute',
-    bottom: '2.6%',
-    right: 0,
-    transform: [{ translateY: -25 }],
-    padding: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    borderRadius: 5,},
-  
+ 
 });
 
 export default HomeScreen;

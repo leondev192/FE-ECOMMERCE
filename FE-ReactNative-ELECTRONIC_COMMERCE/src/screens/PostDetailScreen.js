@@ -21,18 +21,7 @@ const PostDetailScreen = ({ route,navigation }) => {
     setScrollOffset(offsetX);
   };
 
-  const scrollToPreviousNew = () => {
-    if (scrollOffset > 0) {
-      scrollViewRefForPosts.current.scrollTo({ x: scrollOffset - 200, animated: true });
-    }
-  };
-  
-  const scrollToNextNew = () => {
-    if (scrollOffset < (posts.length - 1) * 200) {
-      scrollViewRefForPosts.current.scrollTo({ x: scrollOffset + 200, animated: true });
-    }
-  };
-
+ 
   const scrollViewRefForPosts = React.useRef();
   return (
     <ScrollView>
@@ -63,13 +52,6 @@ const PostDetailScreen = ({ route,navigation }) => {
   )}
 </ScrollView>
 
-    <TouchableOpacity style={styles.buttonLeftNew} onPress={scrollToPreviousNew}>
-          <Ionicons name="arrow-back-sharp" size={15} color="black" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.buttonRightNew} onPress={scrollToNextNew}>
-          <Ionicons name="arrow-forward" size={15} color="black" />
-        </TouchableOpacity>
     </ScrollView>
   );
 };

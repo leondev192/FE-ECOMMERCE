@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button, Alert, TouchableOpacity,Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, Alert } from 'react-native';
 import TextInput from '../components/Login';
 import { login } from '../services/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
@@ -14,37 +14,38 @@ const LoginScreen = ({ navigation }) => {
       await AsyncStorage.setItem('token', token); 
       console.log('Login successful. Token:', token);
       
-      navigation.navigate('Profile'); 
+      navigation.navigate('Profile', { reload: true }); // Điều hướng đến ProfileScreen và truyền tham số reload: true
     } catch (error) {
       Alert.alert('Error', error.message);
     }
   };
+  
 
   return (
     <View style={styles.container}>
       <View style={styles.containerlogo}>
-      <Image style={styles.imagelogo1} source={require('../assets/images/logologin.png')} />
-      <Text style={styles.welcometop}>Welcome back</Text>
-      <Text style={styles.welcomebottom}>sign in to access your account</Text>
+        <Image style={styles.imagelogo1} source={require('../assets/images/logologin.png')} />
+        <Text style={styles.welcometop}>Welcome back</Text>
+        <Text style={styles.welcomebottom}>sign in to access your account</Text>
       </View>
 
       <Text style={styles.title}>Email:</Text>
       <TextInput
         value={email}
         onChangeText={setEmail}
-        placeholder="Enter your email"
+        placeholder="Nhập địa chỉ email"
         autoCapitalize="none"
         keyboardType="email-address"
       />
-      <Text style={styles.title}>Password:</Text>
+      <Text style={styles.title}>Mật khẩu:</Text>
       <TextInput
         value={password}
         onChangeText={setPassword}
-        placeholder="Enter your password"
+        placeholder="Nhập mật khẩu"
         secureTextEntry
       />
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-        <Text style={styles.loginButtonText}>Đăng nhập  </Text>
+        <Text style={styles.loginButtonText}>Đăng nhập</Text>
       </TouchableOpacity>
       <View style={styles.register}>
         <Text>Chưa có tài khoản? </Text>
@@ -65,7 +66,6 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   imagelogo1:{
-    alignItems:'center',
     width: 150.88,
     height: 208.2,
     marginTop: '5%',  
