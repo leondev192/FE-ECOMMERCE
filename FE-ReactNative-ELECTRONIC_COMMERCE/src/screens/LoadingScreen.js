@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     position: 'relative',
+    marginTop: '10%',
     
   },
   imageheader: { 

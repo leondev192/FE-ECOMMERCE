@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, Button, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import PostCard from '../components/PostCard'; 
 import { fetchPosts } from '../services/api/PostApi'; 
 
@@ -15,15 +15,13 @@ const BlogScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
        <View style={styles.viewTitle}>  
-      <Text style={styles.viewNameTitle}>Tin Tức</Text>
-      </View>
-      <ScrollView>
-        <FlatList
+          <Text style={styles.viewNameTitle}>Tin Tức</Text>
+       </View>
+       <FlatList
           data={posts}
           renderItem={({ item }) => <PostCard post={item} navigation={navigation} />}
           keyExtractor={item => item._id}
-        />
-      </ScrollView>
+       />
     </View>
   );
 };
@@ -45,7 +43,7 @@ const styles = StyleSheet.create({
     width: 'auto',
     height: 30,
   },
-    viewNameTitle: {
+  viewNameTitle: {
     color: 'black',
     fontWeight: '600',
     fontSize: 15,

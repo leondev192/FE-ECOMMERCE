@@ -4,6 +4,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { fetchUserData, logoutUser } from '../services/api/UserApiProfile';
 import DefaultUserIcon from '../assets/images/avata-user.png';
+import Order from '../screens/OrdersScreen';
 
 const ProfileScreen = ({ navigation, route }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -57,11 +58,11 @@ const ProfileScreen = ({ navigation, route }) => {
                 source={userData.avatarUrl ? { uri: userData.avatarUrl } : DefaultUserIcon} 
                 style={styles.avatar} 
               />
-              <Text style={styles.userName}>Xin chào: {userData.name}</Text>
+              <Text style={styles.userName}>XIN CHAO: {userData.name}</Text>
             </View>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Order')}>
-              <Text style={styles.buttonText}>Đơn hàng của bạn</Text>
-            </TouchableOpacity>
+            <TouchableOpacity style={styles.logoutButton} onPress={() => navigation.navigate('Order')}>
+          <Text style={styles.logoutButtonText}>Đơn hàng của bạn</Text>
+        </TouchableOpacity>
           </>
         ) : (
           <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>

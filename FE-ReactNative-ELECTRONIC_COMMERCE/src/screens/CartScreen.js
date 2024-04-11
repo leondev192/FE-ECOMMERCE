@@ -160,10 +160,13 @@ const CartScreen = () => {
                 <Text style={styles.emptyCartText}>Không có sản phẩm trong giỏ hàng.</Text>
             )}
             {showPlaceOrderButton && (
+                <View > 
+                
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity onPress={handlePlaceOrderPress} style={styles.placeOrderButton}>
                         <Text style={styles.placeOrderButtonText}>Đặt hàng</Text>
                     </TouchableOpacity>
+                </View>
                 </View>
             )}
             {/* Modal nhập thông tin địa chỉ và số điện thoại */}
@@ -184,6 +187,9 @@ const CartScreen = () => {
 };
 
 const styles = StyleSheet.create({
+    view1:{
+        alignItems:'center',
+    },
     container: {
         flex: 1,
         backgroundColor: 'rgba(245, 245, 245, 1)',
